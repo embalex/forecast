@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const LinkBarWrapper = styled.div`
   height: 15px;
-  width: 100%;
   background: #19191b;
   padding: 8px 28px;
   display: flex;

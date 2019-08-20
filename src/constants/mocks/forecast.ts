@@ -10,7 +10,7 @@ const mondayForecast: IForecastEstimated = {
   tempNight: 10,
   windDirection: WindDirection.N,
   windSpeed: 0,
-  barometer: 0.2,
+  barometer: 0.1,
   rain: 0.1,
 };
 
@@ -20,7 +20,7 @@ const tuesdayForecast: IForecastEstimated = {
   tempNight: 8,
   windDirection: WindDirection.E,
   windSpeed: 2.5,
-  barometer: 0.1,
+  barometer: 0.3,
   rain: 0.4,
 };
 
@@ -30,7 +30,7 @@ const wednesdayForecast: IForecastEstimated = {
   tempNight: 6,
   windDirection: WindDirection.S,
   windSpeed: 3.5,
-  barometer: 0.1,
+  barometer: 0.5,
   rain: 0.8,
 };
 
@@ -40,7 +40,7 @@ const thursdayForecast: IForecastEstimated = {
   tempNight: -1,
   windDirection: WindDirection.W,
   windSpeed: 4.5,
-  barometer: 0.1,
+  barometer: 0.7,
   rain: 0.3,
 };
 
@@ -50,7 +50,7 @@ const fridayForecast: IForecastEstimated = {
   tempNight: -10,
   windDirection: WindDirection.NNW,
   windSpeed: 5.5,
-  barometer: 0.1,
+  barometer: 0.9,
   rain: 0,
 };
 
