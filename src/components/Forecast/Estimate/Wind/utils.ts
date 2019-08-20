@@ -5,21 +5,21 @@ export const directionToAngle = (direction: WindDirection): number => {
   let zone: number = 0;
 
   switch (direction) {
-    case WindDirection.NNW: zone++;
-    case WindDirection.NW:  zone++;
-    case WindDirection.WNW: zone++;
-    case WindDirection.W:   zone++;
-    case WindDirection.WSW: zone++;
-    case WindDirection.SW:  zone++;
-    case WindDirection.SSW: zone++;
-    case WindDirection.S:   zone++;
-    case WindDirection.SSE: zone++;
-    case WindDirection.SE:  zone++;
-    case WindDirection.ESE: zone++;
-    case WindDirection.E:   zone++;
-    case WindDirection.ENE: zone++;
-    case WindDirection.NE:  zone++;
-    case WindDirection.NNE: zone++;
+    case WindDirection.NNW: zone = 15; break;
+    case WindDirection.NW:  zone = 14; break;
+    case WindDirection.WNW: zone = 13; break;
+    case WindDirection.W:   zone = 12; break;
+    case WindDirection.WSW: zone = 11; break;
+    case WindDirection.SW:  zone = 10; break;
+    case WindDirection.SSW: zone = 9; break;
+    case WindDirection.S:   zone = 8; break;
+    case WindDirection.SSE: zone = 7; break;
+    case WindDirection.SE:  zone = 6; break;
+    case WindDirection.ESE: zone = 5; break;
+    case WindDirection.E:   zone = 4; break;
+    case WindDirection.ENE: zone = 3; break;
+    case WindDirection.NE:  zone = 2; break;
+    case WindDirection.NNE: zone = 1; break;
   }
 
   return zone * dAngle;

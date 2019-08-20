@@ -3,7 +3,7 @@ import * as React from 'react';
 import { WindDirection } from '../../../../definitions/windDirections';
 import { Icon } from '../../../../icons';
 import { directionToAngle } from './utils';
-import { DirectionWrapper, TextWrapper, Wrapper } from './styled';
+import { DirectionWrapper, TextWrapper } from './styled';
 
 interface IWindDirection {
   direction: WindDirection;
@@ -12,13 +12,13 @@ interface IWindDirection {
 export const Wind: React.FC<IWindDirection> = ({ direction }) => {
 
   return (
-    <Wrapper>
+    <React.Fragment>
       <DirectionWrapper angle={directionToAngle(direction)}>
         <Icon.Arrow fill="#9cb346" />
       </DirectionWrapper>
       <TextWrapper>
         {direction}
       </TextWrapper>
-    </Wrapper>
+    </React.Fragment>
   );
 };

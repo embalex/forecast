@@ -7,9 +7,7 @@ export const ForecastWrapper = styled.div`
 `;
 
 export const ForecastHeaderWrapper = styled.div`
-  padding: 0 5px;
-  color: #a2a3a8;
-  height: 38px;
+  padding: 0 5px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +16,8 @@ export const ForecastHeaderWrapper = styled.div`
 export const ForecastHeaderCaptionWrapper = styled.div`
   font-size: 14px;
   font-weight: 600;
+  color: #a2a3a8;
+
 `;
 
 export const ForecastHeaderTimeWrapper = styled.div`

@@ -51,8 +51,7 @@ export const Estimate: React.FC<IEstimate> = ({
     </Row>
     <Row>
       <Icon.Glob fill={ForecastTextColor.darkGreen} width={12} height={12} />
-      <Text block space color={ForecastTextColor.darkGreen}>{rain}</Text>
-      <Text block>mm</Text>
+      <Text color={ForecastTextColor.darkGreen}>{`${rain} mm`}</Text>
     </Row>
   </Wrapper>
 );
