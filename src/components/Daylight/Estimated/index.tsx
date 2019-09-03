@@ -32,15 +32,14 @@ export const Estimated: React.FC<IEstimated> = ({
 
   React.useEffect(() => {
     const listener = () => updateCanvas(canvasRef, canvasWrapperRef, estimated.isSun, estimated.planetOffset);
+    listener();
 
     window.addEventListener('resize', listener );
-    const timer = setInterval(listener, 2000);
 
     return () => {
       window.removeEventListener('resize', listener);
-      clearInterval(timer);
     }
-  }, []);
+  }, [estimated]);
 
 
   return (

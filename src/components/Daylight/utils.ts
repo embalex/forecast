@@ -35,13 +35,28 @@ const getEstimatedTime = (daylight: IDaylight): IEstimated => {
     remainingSeconds = sunRiseTomorrow - currentTime;
     till = 'Sun Rise';
   } else {
-    remainingSeconds = 10 * 60 * 60 + 25 * 60;
+    remainingSeconds = 60;
     till = 'end of time';
   }
 
+  const getSunPosition = () => (currentTime - sunRiseToday) / totalDaylight;
+  const getMoonPosition = () => {
+    if (currentTime < sunRiseToday) {
+      const startOfDay: number = Number(moment(sunRiseToday, 'X').startOf('day').format('X'));
+      const timeToSunRise: number = sunRiseToday - startOfDay;
+
+      return 1 - 0.5 * (sunRiseToday - currentTime) / timeToSunRise;
+    }
+
+    const endOfDay: number = Number(moment(sunRiseToday, 'X').endOf('day').format('X'));
+    const sunSetToEndOfDay: number = endOfDay - (sunRiseToday + totalDaylight);
+
+    return 0.5 - 0.5 * (endOfDay - currentTime) / sunSetToEndOfDay;
+  }
+
   const planetOffset: number = isDay(daylight)
-    ? (currentTime - sunRiseToday) / totalDaylight
-    : currentTime < sunRiseToday ? 0.7 : 0.3;
+    ? getSunPosition()
+    : getMoonPosition();
 
   return {
     hrs: Math.floor(remainingSeconds / 60 / 60),

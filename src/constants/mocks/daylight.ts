@@ -14,7 +14,7 @@ const getTime = (hours: number, min: number, isTomorrow?: boolean): number =>{
   return Number(time.format('X'));
 }
 
-export const dayLight: IDaylight = {
+export const mockDaylight: IDaylight = {
   currentTime: Number(moment().format('X')),
   azimuth: 181.4,
   elevation: 31.7,

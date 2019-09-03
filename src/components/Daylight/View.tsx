@@ -67,12 +67,12 @@ export const View: React.FC<IView> = ({
 
         <AzimuthWrapper>
           <Text>Azimuth</Text>
-          <Text color="#f38734">{`${azimuth}°`}</Text>
+          <Text color="#f38734">{`${azimuth.toFixed(1)}°`}</Text>
         </AzimuthWrapper>
 
         <ElevationWrapper>
           <Text>Elevation</Text>
-          <Text color="#f38734">{`${elevation}°`}</Text>
+          <Text color="#f38734">{`${elevation.toFixed(1)}°`}</Text>
         </ElevationWrapper>
 
         <PlanetStartWrapper>
