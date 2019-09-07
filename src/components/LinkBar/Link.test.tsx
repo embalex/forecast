@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import App from './App';
+import { Link } from './Link';
 
-describe ('App component', () => {
+describe ('Link component', () => {
   it('renders without crashing', () => {
 
-    shallow(<App/>);
+    shallow(<Link caption="Test" link="Test" />);
   })
 });

@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import App from './App';
+import { LinkBar } from './index';
 
 describe ('App component', () => {
   it('renders without crashing', () => {
 
-    shallow(<App/>);
+    const links = [{
+      caption: 'Test',
+      link: 'Test',
+    }];
+
+    shallow(<LinkBar links={links} />);
   })
 });
