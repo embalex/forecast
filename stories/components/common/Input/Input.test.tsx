@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { Input } from './Input';
+import { Input } from './index';
 
 describe ('DaylightSettings input component', () => {
   it('renders without crashing', () => {

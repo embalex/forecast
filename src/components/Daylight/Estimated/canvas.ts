@@ -1,19 +1,15 @@
 import * as React from 'react';
+import { ISun} from '../../../definitions/sun';
 
 const PATH_DOT_DELTA: number = 30;
 const DOT_RADIUS: number = 2;
 const MOON_RADIUS: number = 5;
-interface ISun {
-  RADIUS: number;
-  BEAM_LENGTH: number;
-  BEAM_NUMS: number;
-  CORE_TO_BEAM: number;
-}
-const SUN: ISun = {
-  RADIUS: 3,
-  BEAM_LENGTH: 3,
-  BEAM_NUMS: 10,
-  CORE_TO_BEAM: 2,
+
+const defaultSunSettings: ISun = {
+  core: 3,
+  beamLength: 3,
+  beams: 10,
+  coreToBeams: 2,
 };
 
 const setCanvasSize = (canvasRefCurrent: HTMLCanvasElement, wrapperRefCurrent: HTMLDivElement): number => {
@@ -89,23 +85,24 @@ const drawSun = (
    canvasContext: CanvasRenderingContext2D,
    radius: number,
    angle: number,
+   sunSettings: ISun,
 ) => {
   canvasContext.fillStyle = '#f38734';
   canvasContext.strokeStyle = '#f38734';
 
-  const updRadius = radius - (SUN.RADIUS + SUN.CORE_TO_BEAM + SUN.BEAM_LENGTH) - 2 * DOT_RADIUS - 3;
+  const updRadius = radius - (sunSettings.core + sunSettings.coreToBeams + sunSettings.beamLength) - 2 * DOT_RADIUS - 3;
   const x = radius - updRadius * Math.cos(angle);
   const y = radius - updRadius * Math.sin(angle);
 
   canvasContext.beginPath();
-  canvasContext.arc(x, y, SUN.RADIUS, 0, 2 * Math.PI, false);
+  canvasContext.arc(x, y, sunSettings.core, 0, 2 * Math.PI, false);
   canvasContext.fill();
 
-  const sunBeamDAngle = 2 * Math.PI / SUN.BEAM_NUMS;
-  const beamStartRadius = SUN.RADIUS + SUN.CORE_TO_BEAM + SUN.BEAM_LENGTH;
-  const beamEndRadius = SUN.RADIUS + SUN.CORE_TO_BEAM;
+  const sunBeamDAngle = 2 * Math.PI / sunSettings.beams;
+  const beamStartRadius = sunSettings.core + sunSettings.coreToBeams + sunSettings.beamLength;
+  const beamEndRadius = sunSettings.core + sunSettings.coreToBeams;
 
-  for (let i = 0; i < SUN.BEAM_NUMS; i++) {
+  for (let i = 0; i < sunSettings.beams; i++) {
     const angle = i * sunBeamDAngle;
     const beamStartX = x - beamStartRadius * Math.cos(angle);
     const beamStartY = y - beamStartRadius * Math.sin(angle);
@@ -124,8 +121,10 @@ export const updateCanvas = (
   wrapperRef: React.RefObject<HTMLDivElement>,
   isSun?: boolean,
   planetOffset?: number,  // 0 <= position <= 1 from start of dotted path to end
+  customSunSettings?: ISun,
 ) => {
   if (!canvasRef.current || !wrapperRef.current) { return; }
+  const sunSettings = customSunSettings ? customSunSettings : defaultSunSettings;
 
   const canvas = canvasRef.current.getContext('2d');
   if (!canvas) { return; }
@@ -138,7 +137,7 @@ export const updateCanvas = (
 
   const planetAngle = getStartAngle(radius) + (getLastAngle(radius) - getStartAngle(radius)) * planetOffset;
   if (isSun) {
-    drawSun(canvas, radius, planetAngle);
+    drawSun(canvas, radius, planetAngle, sunSettings);
   } else {
     drawMoon(canvas, radius, planetAngle);
   }

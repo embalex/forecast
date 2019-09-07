@@ -1,21 +1,19 @@
-import { mockDaylight } from '../../constants/mocks/daylight';
-import { IDaylight } from '../../definitions/daylight';
-import { config } from './constants';
-
-export const getInitReducerValues = (): IDaylight => mockDaylight;
+import { IConfig } from './types';
 
 export enum reducerAction {
   increment = 'increment',
   decrement = 'decrement',
 }
 
-export interface IAction {
+export interface IAction<T> {
   type: reducerAction,
-  payload: keyof IDaylight;
+  payload: keyof T;
 }
 
-export const reducer = (state: IDaylight, action: IAction): IDaylight => {
-  const newState: IDaylight = { ...state };
+type IReducer = <T>(config: IConfig<T>) => (state: T, action: IAction<T>) => T;
+
+export const reducer: IReducer = config => (state, action) => {
+  const newState = { ...state };
   const value = state[action.payload];
 
   const {

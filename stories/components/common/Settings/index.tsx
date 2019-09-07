@@ -1,20 +1,22 @@
 import * as React from 'react';
 
-import { Input } from './Input';
-import { IDaylight } from '../../definitions/daylight';
-import { config } from './constants';
+import { Input } from '../Input';
+import { IConfig } from './types';
 import {
-  getInitReducerValues,
   reducer,
   reducerAction,
 } from './reducer';
 
-interface IProps {
-  onChange(daylight: IDaylight): void;
+interface IProps<T> {
+  config: IConfig<T>;
+  initValues: T;
+  onChange(value: T): void;
 }
 
-export const DaylightSettings:React.FC<IProps> = ({ onChange }) => {
-  const [state, dispatch] = React.useReducer(reducer, getInitReducerValues());
+type ISettings = <T>(value: IProps<T>) => React.ReactElement<IProps<T>>;
+
+export const Settings: ISettings = ({ initValues, config, onChange }) => {
+  const [state, dispatch] = React.useReducer(reducer(config), initValues);
   React.useEffect(() => onChange(state));
 
   const settings = (Object.keys(config) as Array<keyof typeof config>).map((item) => {

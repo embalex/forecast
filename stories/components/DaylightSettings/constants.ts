@@ -1,24 +1,12 @@
 import moment from 'moment';
 
-import { IDaylight } from '../../definitions/daylight';
-import { secToUserFriendly } from '../Daylight/utils';
-
-interface IItemConfig {
-  caption: string;
-  incValue: number;
-  decValue: number;
-  minValue?: number;
-  maxValue?: number;
-  format?(value: number): string;
-};
-
-type IConfig = {
-  [P in keyof IDaylight]: IItemConfig;
-}
+import { IConfig } from '../common/Settings/types';
+import { IDaylight } from '../../../src/definitions/daylight';
+import { secToUserFriendly } from '../../../src/components/Daylight/utils';
 
 const ONE_HOUR = 1 * 60 * 60;
 
-export const config: IConfig = {
+export const config: IConfig<IDaylight> = {
   currentTime: {
     caption: 'Current time',
     incValue: ONE_HOUR,

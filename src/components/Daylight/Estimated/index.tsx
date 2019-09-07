@@ -1,8 +1,11 @@
 import * as React from 'react';
 
+import { ISun } from '../../../definitions/sun';
+
 import { updateCanvas } from './canvas';
 
 import {
+  BodyWrapper,
   Canvas,
   CanvasWrapper,
   Dummy,
@@ -22,16 +25,18 @@ export interface IEstimated {
     planetOffset: number,
     till: string,
   };
+  sun?: ISun;
 }
 
 export const Estimated: React.FC<IEstimated> = ({
   estimated,
+  sun,
 }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const canvasWrapperRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const listener = () => updateCanvas(canvasRef, canvasWrapperRef, estimated.isSun, estimated.planetOffset);
+    const listener = () => updateCanvas(canvasRef, canvasWrapperRef, estimated.isSun, estimated.planetOffset, sun);
     listener();
 
     window.addEventListener('resize', listener );
@@ -39,7 +44,7 @@ export const Estimated: React.FC<IEstimated> = ({
     return () => {
       window.removeEventListener('resize', listener);
     }
-  }, [estimated]);
+  }, [estimated, sun]);
 
 
   return (
@@ -49,25 +54,27 @@ export const Estimated: React.FC<IEstimated> = ({
       <CanvasWrapper ref={canvasWrapperRef}>
         <Canvas ref={canvasRef} />
       </CanvasWrapper>
-      <Header>
-        Estimated
-      </Header>
-      <TimeWrapper>
-        <ItemWrapper>
-          <Text>hrs</Text>
-          <Text isBig>{estimated.hrs.toString().padStart(2, '0')}</Text>
-        </ItemWrapper>
-        <ItemWrapper>
-          <Text isBig withPadding>:</Text>
-        </ItemWrapper>
-        <ItemWrapper>
-          <Text>min</Text>
-          <Text isBig>{estimated.min.toString().padStart(2, '0')}</Text>
-        </ItemWrapper>
-      </TimeWrapper>
-      <TillWrapper>
-        {`Till ${estimated.till}`}
-      </TillWrapper>
+      <BodyWrapper>
+        <Header>
+          Estimated
+        </Header>
+        <TimeWrapper>
+          <ItemWrapper>
+            <Text>hrs</Text>
+            <Text isBig>{estimated.hrs.toString().padStart(2, '0')}</Text>
+          </ItemWrapper>
+          <ItemWrapper>
+            <Text isBig withPadding>:</Text>
+          </ItemWrapper>
+          <ItemWrapper>
+            <Text>min</Text>
+            <Text isBig>{estimated.min.toString().padStart(2, '0')}</Text>
+          </ItemWrapper>
+        </TimeWrapper>
+        <TillWrapper>
+          {`Till ${estimated.till}`}
+        </TillWrapper>
+      </BodyWrapper>
     </Wrapper>
   </>
 );

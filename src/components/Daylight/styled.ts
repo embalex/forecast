@@ -29,25 +29,25 @@ const ItemWrapper = styled.div`
 
 export const TotalDayligthWrapper = styled(ItemWrapper)`
   position: absolute;
-  left: -25%;
+  left: -30%;
   top: 0%;
 `;
 
 export const TotalDarknessWrapper = styled(ItemWrapper)`
   position: absolute;
-  right: -25%;
+  right: -30%;
   top: 0%;
 `;
 
 export const AzimuthWrapper = styled(ItemWrapper)`
   position: absolute;
-  left: -25%;
+  left: -30%;
   top: 50%;
 `;
 
 export const ElevationWrapper = styled(ItemWrapper)`
   position: absolute;
-  right: -25%;
+  right: -30%;
   top: 50%;
 `;
 

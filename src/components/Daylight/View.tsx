@@ -30,7 +30,6 @@ export type IView = IEstimated & {
     caption: string;
     value: string;
   };
-
 };
 
 export const View: React.FC<IView> = ({
@@ -41,13 +40,14 @@ export const View: React.FC<IView> = ({
   totalDarkness,
   planetStart,
   planetEnd,
+  sun,
 }) => (
   <Wrapper>
       <Header>
         Daylight
       </Header>
     <Container>
-      <Estimated estimated={estimated} />
+      <Estimated estimated={estimated} sun={sun} />
 
         <TotalDayligthWrapper>
           <Text>

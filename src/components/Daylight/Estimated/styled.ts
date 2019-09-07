@@ -6,7 +6,6 @@ export const Dummy = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   position: absolute;
   top: 0;
@@ -26,6 +25,15 @@ export const CanvasWrapper = styled.div`
 `;
 
 export const Canvas = styled.canvas``;
+
+export const BodyWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  bottom: -20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 export const Header = styled.div`
   text-align: center;
