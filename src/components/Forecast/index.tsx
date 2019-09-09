@@ -15,34 +15,44 @@ interface IProps {
 export const Forecast: React.FC<IProps> = ({ estimated }) => {
   const estWrapperRef = React.useRef<HTMLDivElement>(null);
   const [ estimateList, setEstimateList ] = React.useState<React.ReactElement[]>([]);
+  const [ width, setWidth ] = React.useState<number>();
 
   React.useEffect(() => {
-    const updateEstimateList = (): void => {
-      if (!estWrapperRef.current) {
-        setEstimateList([]);
+    if (!estWrapperRef.current) { return; }
 
-        return;
-      }
+    const { clientWidth } = estWrapperRef.current;
+    if (width !== clientWidth) { setWidth(clientWidth); }
+  });
 
-      const { clientWidth } = estWrapperRef.current;
-      const estimatesNums = clientWidth / 170;  // Magic number ((( 170px is width of Estimate's wrapper.
+  const updateEstimateList = (): void => {
+    if (!estWrapperRef.current) {
+      setEstimateList([]);
 
-      const list = estimated.reduce((acc: React.ReactElement[], estimate, estimateNumber) => {
-        if ( estimateNumber >= estimatesNums) { return acc; }
+      return;
+    }
 
-        acc.push(<Estimate key={estimate.time} {...estimate} />);
+    const { clientWidth } = estWrapperRef.current;
+    if (width !== clientWidth) { setWidth(clientWidth); }
 
-        return acc;
-      }, []);
+    const estimatesNums = clientWidth / 170;  // Magic number ((( 170px is width of Estimate's wrapper.
 
-      setEstimateList(list);
-    };
+    const list = estimated.reduce((acc: React.ReactElement[], estimate, estimateNumber) => {
+      if ( estimateNumber >= estimatesNums) { return acc; }
+
+      acc.push(<Estimate key={estimate.time} {...estimate} />);
+
+      return acc;
+    }, []);
+
+    setEstimateList(list);
+  };
+
+  React.useEffect(() => {
     updateEstimateList();
-
     window.addEventListener('resize', updateEstimateList);
 
     return () => window.removeEventListener('resize', updateEstimateList);
-  }, [estimated]);
+  }, [estimated, width]);
 
   return (
     <ForecastWrapper>

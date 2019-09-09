@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { IForecast, IForecastEstimated } from '../../definitions/forecast';
+import { IForecast } from '../../definitions/forecast';
 import { WindDirection } from '../../definitions/windDirections';
 
 export const forecast: IForecast = {

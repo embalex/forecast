@@ -1,6 +1,6 @@
 import { WindDirection } from './windDirections';
 
-export interface IForecastEstimated {
+interface IForecastEstimated {
   time: number;
   tempDay: number;
   tempNight: number;
