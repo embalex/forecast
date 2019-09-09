@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { IPropsWithTheme } from '../../themes/types';
+
 export const Wrapper = styled.div`
   padding: 5px 22px 20px;
   position: relative;
@@ -16,7 +18,7 @@ export const Header = styled.div`
   padding: 12px 0;
   font-size: 14px;
   font-weight: 600;
-  color: #a2a3a8;
+  color: ${({ theme }: IPropsWithTheme): string => theme.common.color};
   text-align: center;
 `;
 
@@ -29,40 +31,46 @@ const ItemWrapper = styled.div`
 
 export const TotalDayligthWrapper = styled(ItemWrapper)`
   position: absolute;
-  left: -30%;
-  top: 0%;
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.totalDayLight.horizontal }
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.totalDayLight.vertical }
 `;
 
 export const TotalDarknessWrapper = styled(ItemWrapper)`
   position: absolute;
-  right: -30%;
-  top: 0%;
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.totalDarkness.horizontal }
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.totalDarkness.vertical }
 `;
 
 export const AzimuthWrapper = styled(ItemWrapper)`
   position: absolute;
-  left: -30%;
-  top: 50%;
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.azimuth.horizontal }
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.azimuth.vertical }
 `;
 
 export const ElevationWrapper = styled(ItemWrapper)`
   position: absolute;
-  right: -30%;
-  top: 50%;
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.elevation.horizontal }
+  ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.elevation.vertical }
 `;
 
-export const PlanetStartWrapper = styled(ItemWrapper)`
+export const PlanetPathStartWrapper = styled(ItemWrapper)`
   position: absolute;
   left: 0;
   bottom: 0;
-  transform: translate(-66%, 50%);
+  transform: translate(
+    ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.planetPathStartTranslate.horizontal},
+    ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.planetPathStartTranslate.vertical}
+  );
 `;
 
-export const PlanetEndWrapper = styled(ItemWrapper)`
+export const PlanetPathEndWrapper = styled(ItemWrapper)`
   position: absolute;
   right: 0;
   bottom: 0;
-  transform: translate(66%, 50%);
+  transform: translate(
+    ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.planetPathEndTranslate.horizontal},
+    ${({ theme }: IPropsWithTheme): string => theme.dayLight.blocksOffsets.planetPathEndTranslate.vertical}
+  );
 `;
 
 interface IText {

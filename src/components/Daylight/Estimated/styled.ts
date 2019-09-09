@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IPropsWithTheme } from '../../../themes/types';
 
 export const Dummy = styled.div`
   margin-top: 50%;
@@ -37,7 +38,7 @@ export const BodyWrapper = styled.div`
 
 export const Header = styled.div`
   text-align: center;
-  font-size: 12px;
+  font-size: ${({ theme }: IPropsWithTheme): string => theme.common.header.fontSize};
   padding-bottom: 12px;
 `;
 
@@ -49,8 +50,8 @@ export const TimeWrapper =  styled.div`
 `;
 
 export const TillWrapper = styled.div`
-  font-size: 16px;
-  color: #f38734;
+  font-size: ${({ theme }: IPropsWithTheme): string => theme.dayLight.till.fontSize};
+  color: ${({ theme }: IPropsWithTheme): string => theme.dayLight.till.color};
   text-align: center;
   padding-bottom: 12px;
 `;
@@ -68,6 +69,9 @@ interface IText {
 }
 
 export const Text = styled.div`
-  font-size: ${({ isBig }: IText) => isBig ? '24px' : '10px'};
+  font-size: ${({ isBig, theme }: IText & IPropsWithTheme) => isBig 
+    ? theme.dayLight.text.fontSize.big
+    : theme.dayLight.text.fontSize.small
+  };
   ${({ withPadding }:IText) => withPadding ? 'padding: 3px' : ''}
 `;

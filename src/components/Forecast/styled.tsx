@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IPropsWithTheme } from '../../themes/types';
 
 
 export const ForecastWrapper = styled.div`
@@ -14,10 +15,9 @@ export const ForecastHeaderWrapper = styled.div`
 `;
 
 export const ForecastHeaderCaptionWrapper = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  color: #a2a3a8;
-
+  font-size: ${({ theme }: IPropsWithTheme): string => theme.common.header.fontSize};
+  font-weight: ${({ theme }: IPropsWithTheme): string => theme.common.header.fontWeight};
+  color: ${({ theme }: IPropsWithTheme): string => theme.common.color};
 `;
 
 export const ForecastHeaderTimeWrapper = styled.div`
@@ -29,10 +29,18 @@ export const ForecastHeaderTimeWrapper = styled.div`
 `;
 
 export const ForecastHeaderTimeCircle = styled.div`
-  width: 10px;
-  height: 10px;
-  background: #9cb346;
-  border-radius: 5px;
+  width: ${({ theme }: IPropsWithTheme): string =>
+    theme.utils.toCss({
+      value: 2 * theme.forecast.timeCircle.radius.value,
+      unit: theme.forecast.timeCircle.radius.unit,
+    })}
+  height: ${({ theme }) =>
+    theme.utils.toCss({
+      value: 2 * theme.forecast.timeCircle.radius.value,
+      unit: theme.forecast.timeCircle.radius.unit,
+    })}
+  background: ${({ theme }) => theme.forecast.timeCircle.color};
+  border-radius: ${({ theme }) => theme.utils.toCss(theme.forecast.timeCircle.radius)};
 `;
 
 export const ForecastHeaderTimeText = styled.div`

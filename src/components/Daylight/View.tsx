@@ -1,20 +1,21 @@
 import * as React from 'react';
+import { ThemeContext } from 'styled-components';
 
 import { Icon } from '../../icons';
-
+import { ITheme } from '../../themes/types';
 import { Estimated, IEstimated } from './Estimated';
 
 import {
-  Wrapper,
-  Header,
-  Text,
-  TotalDayligthWrapper,
-  Container,
-  TotalDarknessWrapper,
   AzimuthWrapper,
+  Container,
   ElevationWrapper,
-  PlanetStartWrapper,
-  PlanetEndWrapper
+  Header,
+  PlanetPathEndWrapper,
+  PlanetPathStartWrapper,
+  Text,
+  TotalDarknessWrapper,
+  TotalDayligthWrapper,
+  Wrapper,
 } from './styled';
 
 export type IView = IEstimated & {
@@ -41,17 +42,21 @@ export const View: React.FC<IView> = ({
   planetStart,
   planetEnd,
   sun,
-}) => (
-  <Wrapper>
+}) => {
+  const theme = React.useContext<ITheme>(ThemeContext);
+  const sunColor = theme.dayLight.colors.sun;
+
+  return (
+    <Wrapper>
       <Header>
         Daylight
       </Header>
-    <Container>
-      <Estimated estimated={estimated} sun={sun} />
+      <Container>
+        <Estimated estimated={estimated} sun={sun} />
 
         <TotalDayligthWrapper>
           <Text>
-            <Icon.Sun width={12} height={12} fill='#f38734' />
+            <Icon.Sun width={12} height={12} fill={sunColor} />
             {totalDaylight}
           </Text>
           <Text>Total Daylight</Text>
@@ -59,7 +64,7 @@ export const View: React.FC<IView> = ({
 
         <TotalDarknessWrapper>
           <Text>
-            <Icon.Sun width={12} height={12} fill='#f38734' />
+            <Icon.Sun width={12} height={12} fill={sunColor} />
             {totalDarkness}
           </Text>
           <Text>Total Darkness</Text>
@@ -67,24 +72,25 @@ export const View: React.FC<IView> = ({
 
         <AzimuthWrapper>
           <Text>Azimuth</Text>
-          <Text color="#f38734">{`${azimuth.toFixed(1)}°`}</Text>
+          <Text color={sunColor}>{`${azimuth.toFixed(1)}°`}</Text>
         </AzimuthWrapper>
 
         <ElevationWrapper>
           <Text>Elevation</Text>
-          <Text color="#f38734">{`${elevation.toFixed(1)}°`}</Text>
+          <Text color={sunColor}>{`${elevation.toFixed(1)}°`}</Text>
         </ElevationWrapper>
 
-        <PlanetStartWrapper>
+        <PlanetPathStartWrapper>
           <Text>{planetStart.caption}</Text>
           <Text>{planetStart.value}</Text>
-        </PlanetStartWrapper>
+        </PlanetPathStartWrapper>
 
-        <PlanetEndWrapper>
+        <PlanetPathEndWrapper>
           <Text>{planetEnd.caption}</Text>
           <Text>{planetEnd.value}</Text>
-        </PlanetEndWrapper>
-    </Container>
-  </Wrapper>
-);
+        </PlanetPathEndWrapper>
+      </Container>
+    </Wrapper>
+  );
+}
 

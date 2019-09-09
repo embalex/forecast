@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { themes } from '../themes';
 
 import { LinkBar } from './LinkBar';
 import { Forecast } from './Forecast';
@@ -11,18 +13,21 @@ import { forecast as mockForecast } from '../constants/mocks/forecast';
 import { AppWrapper, Wrapper } from './App.styled';
 
 interface IApp {
-  daylight: IDaylight
+  daylight: IDaylight;
   sun?: ISun;
+  theme?: any;
 }
 
-const App: React.FC<IApp> = ({ daylight, sun }) => (
-  <Wrapper>
-    <AppWrapper>
-      <Forecast {...mockForecast} />
-      <LinkBar links={mockLinks} />
-      <Daylight {...daylight} sun={sun} />
-    </AppWrapper>
-  </Wrapper>
+const App: React.FC<IApp> = ({ daylight, sun, theme }) => (
+  <ThemeProvider theme={theme ? theme : themes[0]}>
+    <Wrapper>
+      <AppWrapper>
+        <Forecast {...mockForecast} />
+        <LinkBar links={mockLinks} />
+        <Daylight {...daylight} sun={sun} />
+      </AppWrapper>
+    </Wrapper>
+  </ThemeProvider>
 );
 
 export default App;

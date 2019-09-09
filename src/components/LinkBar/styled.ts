@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { IPropsWithTheme } from '../../themes/types';
 
 export const LinkBarWrapper = styled.div`
-  background: #19191b;
+  background: ${({ theme }: IPropsWithTheme): string  => theme.linkBar.background};
   padding: 8px 28px;
   display: flex;
   flex-direction: row;
@@ -15,7 +16,7 @@ export const LinkWrapper = styled.a`
   display: flex;
   flex-direction: row;
   text-decoration: none;
-  color: #8c8d92;
+  color: ${({ theme }: IPropsWithTheme): string  => theme.linkBar.color};
   align-items: center;
 `;
 
