@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 
 export const Wrapper = styled.div`
-  border: 1px solid #8c8d92;
-  border-radius: 4px;
+  border: ${({ theme }) => theme.forecast.estimate.border};
+  border-radius: ${({ theme }) => theme.forecast.estimate.borderRadius};
   padding: 3px;
-  min-width: 85px;
-  max-width: 150px;
+  min-width: ${({ theme }) => theme.utils.toCss(theme.forecast.estimate.minWidth)};
+  max-width: ${({ theme }) => theme.utils.toCss(theme.forecast.estimate.maxWidth)};
   margin: 0 5px;
 `;
 

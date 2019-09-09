@@ -1,8 +1,9 @@
 import * as React from 'react';
 import moment from 'moment';
+import { ThemeContext } from 'styled-components';
 
-import { ForecastTextColor } from '../../../constants/forecastColors';
 import { WindDirection } from '../../../definitions/windDirections';
+import { ITheme } from '../../../themes/types';
 import { Icon } from '../../../icons';
 import { Wind } from './Wind';
 import { WeatherIcon } from './WeatherIcon';
@@ -30,28 +31,33 @@ export const Estimate: React.FC<IEstimate> = ({
   time,
   windDirection,
   windSpeed,
-}) => (
-  <Wrapper>
-    <Row>
-      {moment(time, 'X').format('ddd MMM D')}
-    </Row>
-    <Row>
-      <WeatherIcon dPressure={barometer} />
-    </Row>
-    <Row>
-      <Wind direction={windDirection} />
-    </Row>
-    <Row>
-      <Text block separator width="35%" color={ForecastTextColor.red}>{tempDay}°</Text>
-      <Text block width="35%" color={ForecastTextColor.darkGreen}>{tempNight}°</Text>
-    </Row>
-    <Row>
-      <Text block space>{windSpeed}</Text>
-      <Text color={ForecastTextColor.red}>mph</Text>
-    </Row>
-    <Row>
-      <Icon.Glob fill={ForecastTextColor.darkGreen} width={12} height={12} />
-      <Text color={ForecastTextColor.darkGreen}>{`${rain} mm`}</Text>
-    </Row>
-  </Wrapper>
-);
+}) => {
+  const theme = React.useContext<ITheme>(ThemeContext);
+  const { colors } = theme.forecast;
+
+  return (
+    <Wrapper>
+      <Row>
+        {moment(time, 'X').format('ddd MMM D')}
+      </Row>
+      <Row>
+        <WeatherIcon dPressure={barometer} />
+      </Row>
+      <Row>
+        <Wind direction={windDirection} />
+      </Row>
+      <Row>
+        <Text block separator width="35%" color={colors.red}>{tempDay}°</Text>
+        <Text block width="35%" color={colors.darkGreen}>{tempNight}°</Text>
+      </Row>
+      <Row>
+        <Text block space>{windSpeed}</Text>
+        <Text color={colors.red}>mph</Text>
+      </Row>
+      <Row>
+        <Icon.Glob fill={colors.darkGreen} width={12} height={12} />
+        <Text color={colors.darkGreen}>{`${rain} mm`}</Text>
+      </Row>
+    </Wrapper>
+  );
+};
