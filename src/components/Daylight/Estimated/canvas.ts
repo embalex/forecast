@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ISun} from '../../../definitions/sun';
+import { ITheme } from '../../../themes/types';
 
 const PATH_DOT_DELTA: number = 30;
 const DOT_RADIUS: number = 2;
@@ -27,6 +28,8 @@ const getLastAngle = (radius: number): number => Math.PI - 2 * getStartAngle(rad
 const drawDottedPath = (
   canvasContext: CanvasRenderingContext2D,
   radius: number,
+  fillStyle: string,
+  strokeStyle: string,
 ) => {
   const getAngleDelta = (radius: number): number => {
     const halfCircleLength: number = Math.PI * radius;
@@ -47,8 +50,8 @@ const drawDottedPath = (
     const x = centerX - updRadius * Math.cos(angleAtRadian);
     const y = centerY - updRadius * Math.sin(angleAtRadian);
 
-    canvasContext.fillStyle = '#a2a3a8';
-    canvasContext.strokeStyle = '#27272c';
+    canvasContext.fillStyle = fillStyle;
+    canvasContext.strokeStyle = strokeStyle;
     canvasContext.beginPath();
     canvasContext.arc(x, y, DOT_RADIUS, 0, 2 * Math.PI, false);
     canvasContext.fill();
@@ -70,8 +73,9 @@ const drawMoon = (
   canvasContext: CanvasRenderingContext2D,
   radius: number,
   angle: number,
+  fillStyle: string,
 ) => {
-  canvasContext.fillStyle = '#a2a3a8';
+  canvasContext.fillStyle = fillStyle;
 
   const updRadius = radius - MOON_RADIUS - 2 * DOT_RADIUS - 3;
   const x = radius - updRadius * Math.cos(angle);
@@ -86,9 +90,10 @@ const drawSun = (
    radius: number,
    angle: number,
    sunSettings: ISun,
+   sunColor: string,
 ) => {
-  canvasContext.fillStyle = '#f38734';
-  canvasContext.strokeStyle = '#f38734';
+  canvasContext.fillStyle = sunColor;
+  canvasContext.strokeStyle = sunColor;
 
   const updRadius = radius - (sunSettings.core + sunSettings.coreToBeams + sunSettings.beamLength) - 2 * DOT_RADIUS - 3;
   const x = radius - updRadius * Math.cos(angle);
@@ -122,6 +127,7 @@ export const updateCanvas = (
   isSun?: boolean,
   planetOffset?: number,  // 0 <= position <= 1 from start of dotted path to end
   customSunSettings?: ISun,
+  theme?: ITheme,
 ) => {
   if (!canvasRef.current || !wrapperRef.current) { return; }
   const sunSettings = customSunSettings ? customSunSettings : defaultSunSettings;
@@ -131,15 +137,27 @@ export const updateCanvas = (
 
   const radius = setCanvasSize(canvasRef.current, wrapperRef.current);
 
-  drawDottedPath(canvas, radius);
+  const fillStyle = theme
+    ? theme.dayLight.colors.fill
+    : '#a2a3a8';
+
+  const strokeStyle = theme
+    ? theme.dayLight.colors.stroke
+    : '#27272c';
+
+  drawDottedPath(canvas, radius, fillStyle, strokeStyle);
 
   if (planetOffset === undefined) { return; }
 
+  const sunColor = theme
+    ? theme.dayLight.colors.sun
+    : '#f38734';
+
   const planetAngle = getStartAngle(radius) + (getLastAngle(radius) - getStartAngle(radius)) * planetOffset;
   if (isSun) {
-    drawSun(canvas, radius, planetAngle, sunSettings);
+    drawSun(canvas, radius, planetAngle, sunSettings, sunColor);
   } else {
-    drawMoon(canvas, radius, planetAngle);
+    drawMoon(canvas, radius, planetAngle, fillStyle);
   }
 
 }

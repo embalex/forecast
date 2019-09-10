@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { ThemeContext } from 'styled-components';
 
+import { ITheme } from '../../../themes/types';
 import { ISun } from '../../../definitions/sun';
 
 import { updateCanvas } from './canvas';
@@ -32,11 +34,13 @@ export const Estimated: React.FC<IEstimated> = ({
   estimated,
   sun,
 }) => {
+  const theme = React.useContext<ITheme>(ThemeContext);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const canvasWrapperRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const listener = () => updateCanvas(canvasRef, canvasWrapperRef, estimated.isSun, estimated.planetOffset, sun);
+    const listener =
+      () => updateCanvas(canvasRef, canvasWrapperRef, estimated.isSun, estimated.planetOffset, sun, theme);
     listener();
 
     window.addEventListener('resize', listener );
@@ -44,7 +48,7 @@ export const Estimated: React.FC<IEstimated> = ({
     return () => {
       window.removeEventListener('resize', listener);
     }
-  }, [estimated, sun]);
+  }, [estimated, sun, theme]);
 
 
   return (

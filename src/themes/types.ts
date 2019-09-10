@@ -49,6 +49,8 @@ export namespace Theme {
   export interface IDayLight {
     colors: {
       sun: string;
+      stroke: string;
+      fill: string;
     };
     till: {
       color: string;

@@ -17,7 +17,7 @@ export const AppWithWidthSettings: React.FC = () => {
   return (
     <AppWrapper>
       <SettingsWrapper>
-        <SettingsCaption>Width settings</SettingsCaption>
+        <SettingsCaption>Width setting</SettingsCaption>
         <ZoomSettings initValues={width} onChange={setWidth} />
       </SettingsWrapper>
       <ZoomWrapper {...width}>
