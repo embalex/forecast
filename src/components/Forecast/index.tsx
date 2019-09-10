@@ -40,7 +40,7 @@ export const Forecast: React.FC<IProps> = ({ estimated }) => {
     }, []);
 
     setEstimateList(list);
-  }, [width, estimated]);
+  }, [width, estimated, theme]);
 
   React.useEffect(() => {
     updateEstimateList();

@@ -2,12 +2,12 @@ import { Theme } from '../types';
 
 export const dayLight: Theme.IDayLight = {
   colors: {
-    sun: '#f38734',
+    sun: '#4b4b4b',
     fill: '#a2a3a8',
     stroke: '#27272c',
   },
   till: {
-    color: '#f38734',
+    color: '#4b4b4b',
     fontSize: '16px',
   },
   text: {
